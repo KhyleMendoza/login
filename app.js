@@ -48,14 +48,14 @@ function toggleRegistration() {
 function register() {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
-  const full_name = document.getElementById('full_name').value;
+  const fullName = document.getElementById('full_name').value;
 
-  if (!validate_email(email) || !validate_password(password)) {
+  if (!validateEmail(email) || !validatePassword(password)) {
     alert('Email or Password is invalid.');
     return;
   }
 
-  if (!isLoginMode && !validate_field(full_name)) {
+  if (!isLoginMode && !validateField(fullName)) {
     alert('Full Name is invalid.');
     return;
   }
@@ -64,15 +64,15 @@ function register() {
     .then(function () {
       const user = auth.currentUser;
 
-      const user_data = {
+      const userData = {
         email: email,
-        full_name: full_name,
+        full_name: fullName,
         last_login: Date.now()
       };
 
-      const database_ref = database.ref();
+      const databaseRef = database.ref();
 
-      database_ref.child('users/' + user.uid).set(user_data)
+      databaseRef.child('users/' + user.uid).set(userData)
         .then(function () {
           console.log("User registered and data saved to the database.");
           window.location.href = 'home.html';
@@ -93,7 +93,7 @@ function login() {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
-  if (!validate_email(email) || !validate_password(password)) {
+  if (!validateEmail(email) || !validatePassword(password)) {
     alert('Email or Password is invalid.');
     return;
   }
@@ -101,13 +101,13 @@ function login() {
   auth.signInWithEmailAndPassword(email, password)
     .then(function () {
       const user = auth.currentUser;
-      const user_data = {
+      const userData = {
         last_login: Date.now()
       };
 
-      const database_ref = database.ref();
+      const databaseRef = database.ref();
 
-      database_ref.child('users/' + user.uid).update(user_data)
+      databaseRef.child('users/' + user.uid).update(userData)
         .then(function () {
           console.log("User logged in and last login time updated in the database.");
           window.location.href = 'home.html';
@@ -124,16 +124,16 @@ function login() {
 }
 
 // Validate Functions
-function validate_email(email) {
+function validateEmail(email) {
   const expression = /^[^@]+@\w+(\.\w+)+\w$/;
   return expression.test(email);
 }
 
-function validate_password(password) {
+function validatePassword(password) {
   return password.length >= 6;
 }
 
-function validate_field(field) {
+function validateField(field) {
   return field != null && field.length > 0;
 }
 
