@@ -21,7 +21,7 @@ var firebaseConfig = {
   // Function to toggle between login and registration modes
   function toggleRegistration() {
     // Check if the current page is index.html
-    if (window.location.href.endsWith('/login/')) {
+    if (window.location.href.endsWith('login/')) {
       isLoginMode = !isLoginMode;
   
       const emailField = document.getElementById('email');
