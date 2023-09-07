@@ -45,7 +45,6 @@ function toggleRegistration() {
   }
 }
 
-// Set up our register function
 function register() {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
@@ -138,5 +137,4 @@ function validate_field(field) {
   return field != null && field.length > 0;
 }
 
-// Initialize the page with the login mode (full name hidden)
 toggleRegistration();
